@@ -18,7 +18,8 @@ def cli():
     "--auth",
     type=click.Path(file_okay=True, dir_okay=False, allow_dash=False),
     default="auth.json",
-    help="Path to save token to, defaults to auth.json",
+    help="Path to save token to",
+    show_default=True,
 )
 def auth(auth):
     "Save authentication credentials to a JSON file"
@@ -40,21 +41,41 @@ def auth(auth):
     required=True,
     type=click.Path(file_okay=True, dir_okay=False, allow_dash=False),
 )
-# TODO: --since
 @click.option(
     "-a",
     "--auth",
     type=click.Path(file_okay=True, dir_okay=False, allow_dash=False, exists=True),
     default="auth.json",
-    help="Path to read auth token from, defaults to auth.json",
+    help="Path to read auth token from",
+    show_default=True,
 )
-def posts(database, auth):
-    db = sqlite_utils.Database(database)
+@click.option(
+    "--since",
+    is_flag=True,
+    default=False,
+    help="Pull new posts since last saved post in DB",
+)
+@click.option("--since-date", metavar="DATE", help="Pull new posts since DATE")
+def posts(database, auth, since, since_date):
+    if since and since_date:
+        raise click.UsageError("use either --since or --since-date, not both")
+
     token = json.load(open(auth))["pinboard_token"]
-    resp = requests.get(
-        f"https://api.pinboard.in/v1/posts/all?format=json&auth_token={token}"
-    )
-    posts = resp.json()
+    params = {"format": "json", "auth_token": token}
+
+    db = sqlite_utils.Database(database)
+
+    if since and db["posts"].exists:
+        since_date = db.conn.execute("SELECT max(time) FROM posts;").fetchone()[0]
+    if since_date:
+        params["fromdt"] = (
+            dateutil.parser.parse(since_date)
+            .replace(microsecond=0, tzinfo=None)
+            .isoformat()
+            + "Z"
+        )
+
+    posts = requests.get(f"https://api.pinboard.in/v1/posts/all", params=params).json()
     _save_posts(db, posts)
 
 
