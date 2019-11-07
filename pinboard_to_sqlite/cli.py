@@ -64,6 +64,7 @@ def _save_posts(db, posts):
         post["shared"] = post["shared"] == "yes"
         post["toread"] = post["toread"] == "yes"
         post["time"] = dateutil.parser.parse(post["time"])
+        post["tags"] = json.dumps(post["tags"].split())
 
     db["posts"].upsert_all(
         posts,

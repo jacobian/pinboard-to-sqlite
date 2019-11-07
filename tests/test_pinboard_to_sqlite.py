@@ -19,6 +19,9 @@ def posts():
 def test_posts(db, posts):
     pinboard_to_sqlite.cli._save_posts(db, posts)
     assert ["posts"] == db.table_names()
-    rows = list(db["posts"].rows)
-    assert len(rows) == len(posts)
-    assert set(p["href"] for p in posts) == set(r["href"] for r in rows)
+    assert set(p["href"] for p in posts) == set(r["href"] for r in db["posts"].rows)
+
+
+def test_posts_tags_json(db, posts):
+    pinboard_to_sqlite.cli._save_posts(db, posts)
+    assert ["fish", "sheep", "goats"] == json.loads(db["posts"].get("h1")["tags"])
