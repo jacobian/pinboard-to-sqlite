@@ -9,7 +9,7 @@ license = "wtfpl"
 pinboard-to-sqlite = "pinboard_to_sqlite.cli:cli"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.6"
 sqlite-utils = "^1.12.1"
 requests = "^2.22.0"
 click = "^7.0"
