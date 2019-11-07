@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pinboard-to-sqlite"
-version = "1.0.1"
+version = "1.1.0"
 description = "Save data from Pinboard to a SQLite database"
 authors = ["Jacob Kaplan-Moss <jacob@jacobian.org>"]
 license = "wtfpl"
