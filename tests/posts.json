@@ -1,0 +1,24 @@
+[
+  {
+    "href": "https://example.com/",
+    "description": "An Example",
+    "extended": "example description",
+    "meta": "428a9c4c317ce3600477a61cd24df57d",
+    "hash": "7beb5207746a71276ae2cc1cc81b110c",
+    "time": "2019-11-06T22:50:31Z",
+    "shared": "yes",
+    "toread": "no",
+    "tags": "fish sheep goats"
+  },
+  {
+    "href": "https://example.com/2",
+    "description": "Example 2",
+    "extended": "",
+    "meta": "e45e511a65f1c79d946d8e651bf00ce2",
+    "hash": "af6aa32b88d1dda72a82fdcab4c93986",
+    "time": "2018-11-06T22:50:31Z",
+    "shared": "no",
+    "toread": "yes",
+    "tags": "elephants goats lizards"
+  }
+]

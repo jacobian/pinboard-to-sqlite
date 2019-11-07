@@ -1,0 +1,5 @@
+auth.json
+pinboard_to_sqlite.egg-info
+*.db
+.coverage
+.vscode/

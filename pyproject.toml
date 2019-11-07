@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pinboard-to-sqlite"
+version = "1.0"
+description = "Save data from Pinboard to a SQLite database"
+authors = ["Jacob Kaplan-Moss <jacob@jacobian.org>"]
+
+[tool.poetry.scripts]
+pinboard-to-sqlite = "pinboard_to_sqlite.cli:cli"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+sqlite-utils = "^1.12.1"
+requests = "^2.22.0"
+click = "^7.0"
+python-dateutil = "^2.8.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+pytest-cov = "^2.8.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
